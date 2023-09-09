@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  condition: MyString
+  about: MyText
+  description: MyText
+  quantity: 1
+  price: 9.99
+  accept_offers: false
+  floor_price: 9.99
+  product_size: MyString
+  prouct_weight: 9.99
+
+two:
+  name: MyString
+  condition: MyString
+  about: MyText
+  description: MyText
+  quantity: 1
+  price: 9.99
+  accept_offers: false
+  floor_price: 9.99
+  product_size: MyString
+  prouct_weight: 9.99
