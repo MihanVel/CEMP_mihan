@@ -1,68 +1,126 @@
 <div class="col-xl-4 col-md-6 col-sm-8 col-10" style="margin:auto; background-color: #f8f8f8; border-radius: 6px; padding: 15px; box-shadow: 0px 0px 2px 2px (255, 255, 255, 0.1)">
-  <h1>New order</h1>  
+  
   <%= form_with(model: order) do |form| %>
-    <% if order.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
-
-        <ul>
-          <% order.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
+    <h1>New order</h1>
     <div>
+      <% invalid = order.errors.include?(:name)%>
       <%= form.label :name, style: "display: block" %>
-      <%= form.text_field :name, class: "form-control"%>
-    </div>
-
-    <div>
-      <%= form.label :condition, style: "display: block" %>
-      <%= form.text_field :condition, class: "form-control" %>
-    </div>
-
-    <div>
-      <%= form.label :about, style: "display: block" %>
-      <%= form.text_area :about, class: "form-control" %>
-    </div>
-
-    <div>
-      <%= form.label :description, style: "display: block" %>
-      <%= form.text_area :description, class: "form-control" %>
-    </div>
-
-    <div>
-      <%= form.label :quantity, style: "display: block" %>
-      <%= form.number_field :quantity, class: "form-control" %>
-    </div>
-
-    <div>
-      <%= form.label :price, style: "display: block" %>
-      <%= form.text_field :price, class: "form-control" %>
+      <%= form.text_field :name, class: "form-control", placeholder: "Enter the name of the product" %>
+      <% if invalid %>
+        <p style = "color:red; font-size: smaller">
+          <%= order.errors.full_messages_for(:name).join(", ")%>
+        </p>
+      <% end %>
     </div>
     
+    <div>
+      <% invalid = order.errors.include?(:condition)%>
+        <%= form.label :condition, style: "display: block" %>
+        <%= form.text_field :condition, class: "form-control", placeholder: "Enter the condition of the product" %>
+        <% if invalid %>
+          <p style = "color:red; font-size: smaller">
+            <%= order.errors.full_messages_for(:condition).join(", ")%>
+          </p>
+        <% end %>
+    </div>
+
+    <div>
+      <% invalid = order.errors.include?(:about)%>
+        <%= form.label :about, style: "display: block" %>
+        <%= form.text_area :about, class: "form-control", placeholder: "Enter something about the product" %>
+        <% if invalid %>
+          <p style = "color:red; font-size: smaller">
+            <%= order.errors.full_messages_for(:about).join(", ")%>
+          </p>
+        <% end %>
+    </div>
+
+    <div>
+      <% invalid = order.errors.include?(:description)%>
+        <%= form.label :description, style: "display: block" %>
+        <%= form.text_area :description, class: "form-control", placeholder: "Enter a small description of the product" %>
+        <% if invalid %>
+          <p style = "color:red; font-size: smaller">
+            <%= order.errors.full_messages_for(:description).join(", ")%>
+          </p>
+        <% end %>
+    </div>
+
+    <div>
+      <% invalid = order.errors.include?(:quantity)%>
+        <%= form.label :quantity, style: "display: block" %>
+        <%= form.number_field :quantity, class: "form-control", value:0 %>
+        <% if invalid %>
+          <p style = "color:red; font-size: smaller">
+            <%= order.errors.full_messages_for(:quantity).join(", ")%>
+          </p>
+        <% end %>
+    </div>
+
+    <div>
+    <% invalid = order.errors.include?(:price)%>
+      <%= form.label :price, style: "display: block" %>
+      <%= form.number_field :price, class: "form-control", placeholder: "Enter the price of the amount in Euro" %>
+      <% if invalid %>
+        <p style = "color:red; font-size: smaller">
+          <%= order.errors.full_messages_for(:price).join(", ")%>
+        </p>
+      <% end %>
+    </div>    
     </br>
+    
     <div>
       <%= form.check_box :accept_offers %>
       <%= form.label :accept_offers %>
     </div>
 
+    <!-- This script for make the floor price visibility -->
     <div>
-      <%= form.label :floor_price, style: "display: block" %>
-      <%= form.text_field :floor_price, class: "form-control" %>
+      <%= form.label :floor_price, id: "floor_price_label", style: "display: none" %>
+      <%= form.text_field :floor_price, class: "form-control", style:"display: none", placeholder: "Enter the floor price of the product" %>
     </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var checkbox = document.getElementById('order_accept_offers');
+      var targetElement1 = document.getElementById('order_floor_price');
+      var targetElement2 = document.getElementById('floor_price_label');
+  
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          targetElement1.style.display = 'block';
+          targetElement2.style.display = 'block';
+        } else {
+          targetElement1.style.display = 'none';
+          targetElement2.style.display = 'none';
+        }
+      });
+    });
+    </script>
+
 
     <div>
+      <% invalid = order.errors.include?(:product_size)%>
       <%= form.label :product_size, style: "display: block" %>
-      <%= form.text_field :product_size, class: "form-control" %>
-    </div>
+      <%= form.text_field :product_size, class: "form-control", placeholder: "Enter the product size" %>
+        <% if invalid %>
+          <p style = "color:red; font-size: smaller">
+            <%= order.errors.full_messages_for(:product_size).join(", ")%>
+          </p>
+        <% end %>
+    </div>     
 
     <div>
+      <% invalid = order.errors.include?(:prouct_weight)%>
       <%= form.label :prouct_weight, style: "display: block" %>
-      <%= form.text_field :prouct_weight, class: "form-control" %>
-    </div>
+      <%= form.number_field :prouct_weight, class: "form-control", placeholder: "Enter the product weight in grams" %>
+        <% if invalid %>
+          <p style = "color:red; font-size: smaller">
+            <%= order.errors.full_messages_for(:prouct_weight).join(", ")%>
+          </p>
+        <% end %>
+    </div> 
+
     </br>
     <div>
       <%= form.submit class:"btn btn-primary col-12" %>
