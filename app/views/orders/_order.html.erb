@@ -49,4 +49,8 @@
     <%= order.prouct_weight %>
   </p>
 
+  <% order.images.each do |image| %> 
+    <%= image_tag(image, style: "object-fit: conatain; width: 200px; height: 200px;") %>
+  <% end %>
+
 </div>

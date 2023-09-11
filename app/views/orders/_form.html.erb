@@ -70,14 +70,15 @@
     </br>
     
     <div>
-      <%= form.check_box :accept_offers %>
+      <%= form.check_box :accept_offers, checked:true %>
       <%= form.label :accept_offers %>
     </div>
 
     <!-- This script for make the floor price visibility -->
+
     <div>
-      <%= form.label :floor_price, id: "floor_price_label", style: "display: none" %>
-      <%= form.text_field :floor_price, class: "form-control", style:"display: none", placeholder: "Enter the floor price of the product" %>
+      <%= form.label :floor_price, id: "floor_price_label" %>
+      <%= form.text_field :floor_price, class: "form-control", placeholder: "Enter the floor price of the product" %>
     </div>
     
     <script>
@@ -98,7 +99,6 @@
     });
     </script>
 
-
     <div>
       <% invalid = order.errors.include?(:product_size)%>
       <%= form.label :product_size, style: "display: block" %>
@@ -112,7 +112,7 @@
 
     <div>
       <% invalid = order.errors.include?(:prouct_weight)%>
-      <%= form.label :prouct_weight, style: "display: block" %>
+      <%= form.label :product_weight, style: "display: block" %>
       <%= form.number_field :prouct_weight, class: "form-control", placeholder: "Enter the product weight in grams" %>
         <% if invalid %>
           <p style = "color:red; font-size: smaller">
@@ -120,7 +120,9 @@
           </p>
         <% end %>
     </div> 
-
+    
+    <label for="images">Add images of the product</label><br>
+    <%= form.file_field :images, multiple: true %>
     </br>
     <div>
       <%= form.submit class:"btn btn-primary col-12" %>

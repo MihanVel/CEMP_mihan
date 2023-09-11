@@ -7,4 +7,6 @@ class Order < ApplicationRecord
     validates :price, presence: true
     validates :product_size, presence: true
     validates :prouct_weight, presence: true
+
+    has_many_attached :images
 end
